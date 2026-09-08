@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar - Web2APK</title>
+<link rel="stylesheet" href="/public/css/style.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="brand-row">
+        <div class="brand-mark"><i data-lucide="user-plus" class="icon"></i></div>
+        <div>
+          <div class="brand-name" data-brand-name>Web2APK</div>
+          <div class="brand-sub">Buat akun baru</div>
+        </div>
+      </div>
+      <h1>Daftar akun</h1>
+      <p class="lead">Pakai akun ini untuk masuk ke panel dan submit build.</p>
+      <div id="errorBox"></div>
+      <form id="registerForm">
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required autocomplete="new-password" minlength="6">
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Daftar</button>
+      </form>
+      <div class="auth-footer">
+        Sudah punya akun? <a href="/login" style="color:#949cf7;">Login</a>
+      </div>
+    </div>
+  </div>
+  <script src="/public/js/branding.js"></script>
+  <script src="/public/js/register.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

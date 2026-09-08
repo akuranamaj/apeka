@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Web2APK</title>
+<link rel="stylesheet" href="/public/css/style.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="brand-row">
+        <div class="brand-mark"><i data-lucide="lock" class="icon"></i></div>
+        <div>
+          <div class="brand-name" data-brand-name>Web2APK</div>
+          <div class="brand-sub">Panel</div>
+        </div>
+      </div>
+      <h1>Selamat datang kembali</h1>
+      <p class="lead">Masuk pakai akun yang kamu daftarkan di web atau lewat bot Telegram.</p>
+      <div id="errorBox"></div>
+      <form id="loginForm">
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Masuk</button>
+      </form>
+      <div class="auth-footer">
+        Belum punya akun? <a href="/register" style="color:#949cf7;">Daftar</a>
+      </div>
+    </div>
+  </div>
+  <script src="/public/js/branding.js"></script>
+  <script src="/public/js/login.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
