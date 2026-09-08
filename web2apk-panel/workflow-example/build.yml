@@ -1,0 +1,66 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_id:
+        required: true
+      app_name:
+        required: true
+      package_name:
+        required: true
+      url:
+        required: false
+      zip_url:
+        required: false
+      callback_url:
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- Ganti bagian ini dengan langkah build asli project kamu ---
+      # Contoh kalau Flutter:
+      # - uses: subosito/flutter-action@v2
+      #   with: { flutter-version: '3.24.0' }
+      # - run: flutter pub get
+      # - run: flutter build apk --release
+      # Pastikan hasil akhirnya adalah file .apk di suatu folder, misal build/app/outputs/flutter-apk/
+      - name: Build placeholder
+        run: |
+          echo "Isi step build asli project kamu di sini."
+          echo "Harus menghasilkan file .apk sebelum lanjut ke step upload artifact."
+
+      - name: Upload APK artifact
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.app_name }}
+          path: '**/*.apk'
+          if-no-files-found: error
+
+      # Step ini yang menggantikan "fake success message" di versi lama:
+      # dia melapor balik ke panel HANYA dengan hasil yang benar-benar terjadi.
+      - name: Report result to panel
+        if: always()
+        env:
+          CALLBACK_SECRET: ${{ secrets.BUILD_CALLBACK_SECRET }}
+        run: |
+          STATUS="success"
+          if [ "${{ job.status }}" != "success" ]; then STATUS="failure"; fi
+
+          ARTIFACT_ID=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" \
+            | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{try{const j=JSON.parse(d);const a=j.artifacts&&j.artifacts[0];console.log(a?a.id:'')}catch(e){console.log('')}})")
+
+          curl -s -X POST "${{ inputs.callback_url }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"secret\":\"$CALLBACK_SECRET\",\"job_id\":\"${{ inputs.job_id }}\",\"status\":\"$STATUS\",\"artifact_id\":\"$ARTIFACT_ID\",\"run_id\":\"${{ github.run_id }}\"}"
+
+# Setup yang perlu kamu lakukan di repo build ini:
+# 1. Settings > Secrets and variables > Actions > New repository secret
+#    Nama: BUILD_CALLBACK_SECRET, isi harus SAMA PERSIS dengan BUILD_CALLBACK_SECRET di .env panel.
+# 2. Timpa langkah "Build placeholder" di atas dengan proses build asli kamu.

@@ -1,0 +1,25 @@
+{
+  "name": "web2apk-panel",
+  "version": "6.0.0",
+  "private": true,
+  "description": "Web2APK control panel + Telegram bot, Discord-styled, Vercel-ready",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "dev": "node local-server.js",
+    "set-webhook": "node scripts/set-webhook.js"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.7.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.21.0",
+    "grammy": "^1.30.0",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^9.0.1"
+  }
+}
